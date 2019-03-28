@@ -7,8 +7,14 @@
 </template>
 
 <script>
+
+import user from './components/User.vue'
+
 export default {
-  name: 'App'
+    name: 'App',
+    components: {
+        user
+    }
 }
 </script>
 
