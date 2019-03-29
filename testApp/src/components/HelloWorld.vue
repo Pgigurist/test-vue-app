@@ -2,8 +2,8 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>{{text}}</p>
-    <input type="text" v-model='text'>
-    <input type="submit" @click='onSubmit'>
+    <!--input type="text" v-model='text'-->
+    <!--input type="submit" @click='onSubmit'-->
   </div>
 </template>
 
