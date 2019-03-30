@@ -24,21 +24,21 @@ export default {
     
     data: ()=>{
         return{
-            tree: JSON.parse(testData)._root
+            tree: null//JSON.parse(testData)._root
         }
     },
-    /*
+    
     mounted: function(){
             console.log('send get')
             axios
                 .get('http://localhost:3000/getCurrentTree')
                 .then(res => (this.tree = JSON.parse(res)._root))
     }
-    */
+    
 }
 
 
-var testData = "{\"_root\":{\"data\":\"home\",\"key\":\"home\",\"parrent\":null,\"status\":\"connected\",\"children\":[{\"data\":\"kitchen\",\"key\":\"homekitchen\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[{\"data\":\"sensor1\",\"key\":\"homekitchensensor1\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[{\"data\":\"humidity\",\"key\":\"homekitchensensor1humidity\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[]},{\"data\":\"temperature\",\"key\":\"homekitchensensor1temperature\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[]}]},{\"data\":\"light1\",\"key\":\"homekitchenlight1\",\"parrent\":\"[Circular]\",\"status\":\"disconnected\",\"children\":[{\"data\":\"state\",\"key\":\"homekitchenlight1state\",\"parrent\":\"[Circular]\",\"status\":\"disconnected\",\"children\":[]}]},{\"data\":\"sensor2\",\"key\":\"homekitchensensor2\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[{\"data\":\"light\",\"key\":\"homekitchensensor2light\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[]}]}]},{\"data\":\"livingroom\",\"key\":\"homelivingroom\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[{\"data\":\"temperature\",\"key\":\"homelivingroomtemperature\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[]}]}]}}"
+//var testData = "{\"_root\":{\"data\":\"home\",\"key\":\"home\",\"parrent\":null,\"status\":\"connected\",\"children\":[{\"data\":\"kitchen\",\"key\":\"homekitchen\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[{\"data\":\"sensor1\",\"key\":\"homekitchensensor1\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[{\"data\":\"humidity\",\"key\":\"homekitchensensor1humidity\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[]},{\"data\":\"temperature\",\"key\":\"homekitchensensor1temperature\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[]}]},{\"data\":\"light1\",\"key\":\"homekitchenlight1\",\"parrent\":\"[Circular]\",\"status\":\"disconnected\",\"children\":[{\"data\":\"state\",\"key\":\"homekitchenlight1state\",\"parrent\":\"[Circular]\",\"status\":\"disconnected\",\"children\":[]}]},{\"data\":\"sensor2\",\"key\":\"homekitchensensor2\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[{\"data\":\"light\",\"key\":\"homekitchensensor2light\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[]}]}]},{\"data\":\"livingroom\",\"key\":\"homelivingroom\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[{\"data\":\"temperature\",\"key\":\"homelivingroomtemperature\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[]}]}]}}"
 
 
 </script>
