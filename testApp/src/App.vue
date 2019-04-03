@@ -24,22 +24,64 @@ export default {
     
     data: ()=>{
         return{
-            tree: null//JSON.parse(testData)._root
+            tree: null,
+            ws: null,
+            loading: false
         }
     },
-    
-    mounted: function(){
-            console.log('send get')
-            axios
-                .get('http://localhost:3000/getCurrentTree')
-                .then(res => (this.tree = JSON.parse(res)._root))
+    ///*
+    methods: {
+      getTree: function(){
+          this.loading = true
+          axios.get('api/getCurrentTree/', { crossdomain: true })
+            .then((response)=>{
+                this.loading = false
+                console.log(response.data)
+                this.tree = JSON.parse(response.data)._root
+            }, (err)=>{
+              this.loading = false
+          })
+      },
+      search: function(key, callback, elm){
+          //console.log('Search: '+key)
+          if(elm == undefined){
+              elm = this.tree
+          }
+          if(elm.key == key){
+              //console.log('match')
+              callback(elm)
+          }else{
+              for(var i=0; i<elm.children.length; i++){
+                  this.search(key ,callback ,elm.children[i])
+              }
+          }
+      }
+    },
+    beforeMount: function(){
+            this.getTree()
+    },
+    created: function(){
+        var self = this
+        this.ws = new WebSocket('ws://localhost:40510')
+        this.ws.onopen = ()=>{
+            console.log('ws connected')
+        }
+        this.ws.onclose = (eventclose)=>{
+            console.log('соединение закрыто причина: '+eventclose)
+        }
+        this.ws.onmessage = (mes)=>{
+            
+            var data = JSON.parse(mes.data)
+            //console.log(data.key)
+            this.search(data.key, (elm)=>{
+                elm.status = data.status
+            })
+            
+            //this.$emit('statUpdate', msg)
+        }
     }
-    
 }
-
-
-//var testData = "{\"_root\":{\"data\":\"home\",\"key\":\"home\",\"parrent\":null,\"status\":\"connected\",\"children\":[{\"data\":\"kitchen\",\"key\":\"homekitchen\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[{\"data\":\"sensor1\",\"key\":\"homekitchensensor1\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[{\"data\":\"humidity\",\"key\":\"homekitchensensor1humidity\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[]},{\"data\":\"temperature\",\"key\":\"homekitchensensor1temperature\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[]}]},{\"data\":\"light1\",\"key\":\"homekitchenlight1\",\"parrent\":\"[Circular]\",\"status\":\"disconnected\",\"children\":[{\"data\":\"state\",\"key\":\"homekitchenlight1state\",\"parrent\":\"[Circular]\",\"status\":\"disconnected\",\"children\":[]}]},{\"data\":\"sensor2\",\"key\":\"homekitchensensor2\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[{\"data\":\"light\",\"key\":\"homekitchensensor2light\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[]}]}]},{\"data\":\"livingroom\",\"key\":\"homelivingroom\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[{\"data\":\"temperature\",\"key\":\"homelivingroomtemperature\",\"parrent\":\"[Circular]\",\"status\":\"connected\",\"children\":[]}]}]}}"
-
+// CSS 
 
 </script>
 

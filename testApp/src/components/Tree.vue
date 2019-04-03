@@ -8,7 +8,7 @@
 
 <script>
     //import axios from 'axios'
-    import NodeTree from './Tree/NodeTree';
+    import NodeTree from './Tree/NodeTree'
 
     export default {
         
@@ -25,7 +25,8 @@
 
 <style>
     .tree-list ul{
-        padding-left: 16px;
+        padding-left: 36px;
         margin: 6px 0;
+        list-style-type: none;
     }
 </style>
