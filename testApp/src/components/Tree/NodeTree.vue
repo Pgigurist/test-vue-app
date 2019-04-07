@@ -3,14 +3,12 @@
     <li class="node-tree">
         <div class="label" v-bind:class="{connected: node.status, disconnected: !node.status}">
             <h4>{{node.data}}</h4>
-            <p>{{status}}</p>
+            <!--p></p-->
             <div class="bPanel">
-                <button class="showButton" v-on:click="show = !show">SHOW</button>
-                <button class="delButton" v-on:click="del()">DEL</button>
+                <button class="showButton" v-on:click="show = !show">{{shown()}}</button>
+                <button class="delButton">INFO</button>
             </div>
         </div>
-        
-           
         <transition>
            <div v-if="show">
                 <ul v-if="node.children && node.children.length">
@@ -30,11 +28,17 @@
         
         data: function(){return{
             status: false,
-            show: false
+            show: false,
         }},
         methods:{
             del: function(){
                 alert('комманда удалить '+this.node.data)
+            },
+            shown:  function(){
+                if(this.show){
+                    return 'HIDE'
+                }
+                return 'SHOW'
             }
         },
         name: "node",
@@ -58,18 +62,24 @@
     .disconnected{
         background-color: #f99b9b
     }
+    .label h4 {
+        padding-top: 15pt;
+    }
     
+    .label p{
+        color:aliceblue;
+    }
     .bPanel{
         position: relative;
-        top: -61pt;
+        top: -47pt;
         left: 140pt;
         width: 60pt;
-        height: 50pt;
+        height: 48pt;
     }
     
     .label .showButton{
         width: 60pt;
-        height: 25pt;
+        height: 25.5pt;
         border-radius: 0 7pt 0 0;
         background-color: #b8ecb8;
         
@@ -77,8 +87,39 @@
     
     .label .delButton{
         width: 60pt;
-        height: 25pt;
+        height: 24pt;
         border-radius: 0 0 7pt 0;
         background-color: #dc9d86;
+    }
+    
+    
+    .info{
+        position: fixed;
+        left: 50%;
+        top: 108pt;
+        background-color: #dada78;
+        width: 300pt;
+        height: 300pt;
+        border-radius: 10pt;
+    }
+    
+    table{
+        margin: 20pt;
+    }
+    
+    table td{
+        margin: 5pt;
+        padding-left: 20pt;
+        border-right: 1pt solid grey;
+        border-left: 1pt solid grey;
+    }
+    table .name{
+        width: 30pt;
+    }
+    table .status{
+        width: 30pt;
+    }
+    table .action{
+        width: 100pt;
     }
 </style>

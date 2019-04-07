@@ -2,6 +2,8 @@
   <div id="app">
     <!--img src="./assets/logo.png"-->
     <!--user/-->
+    <navigation/>
+    <info/>
     <tree :tree-data="tree"></tree>
     <!--router-view/-->
   </div>
@@ -12,13 +14,17 @@
 import user from './components/User.vue'
 import Tree from './components/Tree.vue'
 import axios from 'axios'
-//import axios from 'axios'
+import Navigation from './components/Navigation.vue'
+import Info from './components/Info.vue'
 
 export default {
     name: 'App',
     components: {
+        Navigation,
+        Info,
         user,
-        Tree
+        Tree,
+        
     },
     
     
@@ -26,7 +32,7 @@ export default {
         return{
             tree: null,
             ws: null,
-            loading: false
+            loading: false,
         }
     },
     ///*
@@ -48,14 +54,15 @@ export default {
               elm = this.tree
           }
           if(elm.key == key){
-              //console.log('match')
+              
               callback(elm)
           }else{
               for(var i=0; i<elm.children.length; i++){
                   this.search(key ,callback ,elm.children[i])
               }
           }
-      }
+      },
+        
     },
     beforeMount: function(){
             this.getTree()
@@ -72,10 +79,29 @@ export default {
         this.ws.onmessage = (mes)=>{
             
             var data = JSON.parse(mes.data)
-            //console.log(data.key)
-            this.search(data.key, (elm)=>{
-                elm.status = data.status
-            })
+            
+            
+            switch(data.message){
+                case 'connected':
+                    this.search(data.key, (elm)=>{
+                        elm.status = true
+                    })
+                    break
+                case 'disconnected':
+                    //do nothing
+                    this.search(data.key, (elm)=>{
+                        elm.status = false
+                    })
+                    break
+                default:
+                    //do nothing
+                    //this.search(data.key, (elm)=>{
+                    //    elm.action = false
+                    //})
+                    break
+            }
+            
+            
             
             //this.$emit('statUpdate', msg)
         }
