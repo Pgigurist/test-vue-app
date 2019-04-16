@@ -4,7 +4,7 @@
     <!--user/-->
     <navigation/>
     <info/>
-    <tree :tree-data="tree"></tree>
+    <tree :tree-data="tree" @del="del"></tree>
     <!--router-view/-->
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
           axios.get('api/getCurrentTree/', { crossdomain: true })
             .then((response)=>{
                 this.loading = false
-                console.log(response.data)
+                //console.log(response.data)
                 this.tree = JSON.parse(response.data)._root
             }, (err)=>{
               this.loading = false
@@ -62,7 +62,18 @@ export default {
               }
           }
       },
-        
+        del:    function(pkg){
+            if(confirm('комманда удалить '+pkg.data)){
+                //console.log('recent: ')
+                let data = {
+                    message: 'remove',
+                    node:    pkg
+                }
+                console.log(data)
+                this.ws.send(JSON.stringify(data))
+                this.getTree()
+            }
+        }
     },
     beforeMount: function(){
             this.getTree()

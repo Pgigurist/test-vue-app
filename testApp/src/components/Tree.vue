@@ -1,7 +1,7 @@
 <template>
-    <div class="tree">
-        <ul class="tree-list">
-            <node-tree :node="treeData"></node-tree>
+    <div class="tree" >
+        <ul class="tree-list" >
+            <node-tree :node="treeData" @del="del"></node-tree>
         </ul>
     </div>
 </template>
@@ -12,7 +12,13 @@
 
     export default {
         methods: {
-             
+            del:    function(data){
+                
+                //alert('emit del from: '+data)
+                
+                console.log('emin del in tree')
+                this.$emit('del', data)
+            } 
         },
         props:  {
             treeData: Object

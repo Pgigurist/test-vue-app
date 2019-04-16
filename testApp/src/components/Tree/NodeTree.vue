@@ -6,13 +6,13 @@
             <!--p></p-->
             <div class="bPanel">
                 <button class="showButton" v-on:click="show = !show">{{shown()}}</button>
-                <button class="delButton">INFO</button>
+                <button v-if="node.parrent != null" class="delButton" v-on:click="removeNode">DEL</button>
             </div>
         </div>
         <transition>
            <div v-if="show">
                 <ul v-if="node.children && node.children.length">
-                    <node v-for="child in node.children" :node="child" :key="child.key"></node>
+                    <node v-for="child in node.children" :node="child" :key="child.key" @del="del"></node>
                 </ul>
             </div>
         </transition>
@@ -31,14 +31,20 @@
             show: false,
         }},
         methods:{
-            del: function(){
-                alert('комманда удалить '+this.node.data)
+            removeNode: function(){
+                //
+                console.log('emit del in '+this.node.data)
+                this.$emit('del', this.node)
             },
             shown:  function(){
                 if(this.show){
                     return 'HIDE'
                 }
                 return 'SHOW'
+            },
+            del: function(pkg){
+                console.log('pass del upper')
+                this.$emit('del', pkg)
             }
         },
         name: "node",
