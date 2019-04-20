@@ -2,7 +2,7 @@
    
     <li class="node-tree">
         <div class="label" v-bind:class="{connected: node.status, disconnected: !node.status}">
-            <h4>{{node.data}}</h4>
+            <h4 v-on:click="infoNode">{{node.data}}</h4>
             <!--p></p-->
             <div class="bPanel">
                 <button class="showButton" v-on:click="show = !show">{{shown()}}</button>
@@ -12,7 +12,7 @@
         <transition>
            <div v-if="show">
                 <ul v-if="node.children && node.children.length">
-                    <node v-for="child in node.children" :node="child" :key="child.key" @del="del"></node>
+                    <node v-for="child in node.children" :node="child" :key="child.key" @del="del" @info="info"></node>
                 </ul>
             </div>
         </transition>
@@ -45,6 +45,14 @@
             del: function(pkg){
                 console.log('pass del upper')
                 this.$emit('del', pkg)
+            },
+            infoNode: function(){
+                console.log('emit info in '+this.node.data)
+                this.$emit('info', this.node)
+            },
+            info:   function(pkg){
+                console.log('pass info upper')
+                this.$emit('info', pkg)
             }
         },
         name: "node",

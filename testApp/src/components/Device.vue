@@ -1,5 +1,5 @@
 <template>
-    <div class="device" v-bind:class="">{{device.data}}</div>
+    <div class="device" v-bind:class="">{{node.data}}</div>
 </template>
 
 <script>
@@ -13,7 +13,7 @@ export default{
       }  
     },
     props:{
-        device: Object
+        node: Object
     }
 }
 </script>

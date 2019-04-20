@@ -1,17 +1,32 @@
 <template>
     <div class="infoPanel">
         <h4>Info</h4>
+        <table>
+            <tr>
+                <td>device</td>
+                <td>{{infoData.device}}</td>
+            </tr>
+            <tr>
+                <td>status</td>
+                <td>{{infoData.status}}</td>
+            </tr>
+            <tr>
+                <td>last action</td>
+                <td>{{infoData.lastAction}}</td>
+            </tr>
+        </table>
     </div>
 </template>
 <script>
 export default{
     data: function(){
         return{
-            name:   '',
-            key:    '',
-            status: '',
-            message:'',
+   
         }
+    },
+    
+    props:   {
+        infoData: Object
     }
 }
 </script>
@@ -22,7 +37,8 @@ export default{
         left: 60%;
         width: 35%;
         height: 60%;
-        background-color: #e9f187;
+        background-color: #ffffff;
+        border: 3pt solid #b8ecb8;
         border-radius: 10pt;
     }
     

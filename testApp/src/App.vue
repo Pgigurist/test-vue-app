@@ -3,8 +3,8 @@
     <!--img src="./assets/logo.png"-->
     <!--user/-->
     <navigation/>
-    <info/>
-    <tree :tree-data="tree" @del="del"></tree>
+    <info :info-data="info"/>
+    <tree :tree-data="tree" @del="del" @info="setInfo"></tree>
     <!--router-view/-->
   </div>
 </template>
@@ -33,6 +33,11 @@ export default {
             tree: null,
             ws: null,
             loading: false,
+            info: {
+                device: 'unkmown',
+                status: false,
+                lastAction: 'uncknown'
+            }
         }
     },
     ///*
@@ -73,6 +78,13 @@ export default {
                 this.ws.send(JSON.stringify(data))
                 this.getTree()
             }
+        },
+        setInfo:   function(pkg){
+            console.log('info '+pkg)
+            //info.methods.setData(pkg)
+            this.info.device = pkg.data
+            this.info.status = pkg.status
+
         }
     },
     beforeMount: function(){
