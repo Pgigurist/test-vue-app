@@ -107,33 +107,4 @@
     }
     
     
-    .info{
-        position: fixed;
-        left: 50%;
-        top: 108pt;
-        background-color: #dada78;
-        width: 300pt;
-        height: 300pt;
-        border-radius: 10pt;
-    }
-    
-    table{
-        margin: 20pt;
-    }
-    
-    table td{
-        margin: 5pt;
-        padding-left: 20pt;
-        border-right: 1pt solid grey;
-        border-left: 1pt solid grey;
-    }
-    table .name{
-        width: 30pt;
-    }
-    table .status{
-        width: 30pt;
-    }
-    table .action{
-        width: 100pt;
-    }
 </style>

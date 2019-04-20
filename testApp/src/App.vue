@@ -5,17 +5,19 @@
     <navigation/>
     <info :info-data="info"/>
     <tree :tree-data="tree" @del="del" @info="setInfo"></tree>
+    <log/>
     <!--router-view/-->
   </div>
 </template>
 
 <script>
 
-import user from './components/User.vue'
+import user from './components/User.vue'//rm in future
 import Tree from './components/Tree.vue'
 import axios from 'axios'
 import Navigation from './components/Navigation.vue'
 import Info from './components/Info.vue'
+import log from './components/log.vue'
 
 export default {
     name: 'App',
@@ -24,7 +26,7 @@ export default {
         Info,
         user,
         Tree,
-        
+        log,
     },
     
     
