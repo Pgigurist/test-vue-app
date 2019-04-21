@@ -2,10 +2,17 @@
   <div id="app">
     <!--img src="./assets/logo.png"-->
     <!--user/-->
-    <navigation/>
-    <info :info-data="info"/>
-    <tree :tree-data="tree" @del="del" @info="setInfo"></tree>
-    <log/>
+    <navigation @showstatus="showstatus" @showlog="showlog"/>
+    <transition>
+        <div class="topicStatus" v-if="topicStatus">
+            <info :info-data="info"/>
+            <tree :tree-data="tree" @del="del" @info="setInfo"></tree>
+        </div>
+        <div v-if="logData">
+            <log/>
+        </div>
+    </transition>
+    
     <!--router-view/-->
   </div>
 </template>
@@ -35,6 +42,8 @@ export default {
             tree: null,
             ws: null,
             loading: false,
+            topicStatus: true,
+            logData:   false,
             info: {
                 device: 'unkmown',
                 status: false,
@@ -87,8 +96,17 @@ export default {
             this.info.device = pkg.data
             this.info.status = pkg.status
 
-        }
+        },
+        showstatus:    function(data){
+            this.topicStatus = true
+            this.logData = false
+        },
+        showlog: function(data){
+            this.topicStatus = false
+            this.logData = true
+        },
     },
+    
     beforeMount: function(){
             this.getTree()
     },

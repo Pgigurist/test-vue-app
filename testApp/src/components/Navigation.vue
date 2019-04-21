@@ -2,11 +2,29 @@
     <div class="navDiv">
         test
         <div class="navBtnPanel">
-            <button>topics status</button>
-            <button>message log</button>
+            <button v-on:click="sendTopicStatus">topics status</button>
+            <button v-on:click="sendMessageLog">message log</button>
         </div>
     </div>
 </template>
+<script>
+export default{
+    data:   function(){return{
+
+        }
+    },
+    methods:    {
+        sendTopicStatus: function(){
+            this.$emit('showstatus', null)
+            console.log('emit status')
+        },
+        sendMessageLog: function(){
+            this.$emit('showlog', null)
+            console.log('emit log')
+        }
+    }
+}
+</script>
 <style>
     .navDiv{
         height: 50pt;
