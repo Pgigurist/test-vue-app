@@ -9,7 +9,7 @@
             <tree :tree-data="tree" @del="del" @info="setInfo"></tree>
         </div>
         <div v-if="logData">
-            <log/>
+            <log :logContent="log"/>
         </div>
     </transition>
     
@@ -44,6 +44,7 @@ export default {
             loading: false,
             topicStatus: true,
             logData:   false,
+            log: [],
             info: {
                 device: 'unkmown',
                 status: false,
@@ -91,11 +92,12 @@ export default {
             }
         },
         setInfo:   function(pkg){
-            console.log('info '+pkg)
+            //console.log('info '+pkg)
             //info.methods.setData(pkg)
             this.info.device = pkg.data
             this.info.status = pkg.status
-
+            console.log('key is: '+pkg.key)
+            this.info.lastAction = this.getLastMessage(pkg.key)
         },
         showstatus:    function(data){
             this.topicStatus = true
@@ -105,12 +107,30 @@ export default {
             this.topicStatus = false
             this.logData = true
         },
+        addLogContent:  function(data){ 
+            this.log.push(data)
+        },
+        getLastMessage: function(key){
+            let index =0;
+            for(var i=0; i<log.length; i++){
+                let currentKey = log[i].key.split('/').join('')
+                if(currentKey == key){
+                    index = i
+                }
+            }
+            if(index == 0){
+                return 0
+            }else{
+                return log[i]
+            }
+        }
     },
     
     beforeMount: function(){
             this.getTree()
     },
     created: function(){
+        
         var self = this
         this.ws = new WebSocket('ws://localhost:40510')
         this.ws.onopen = ()=>{
@@ -123,6 +143,7 @@ export default {
             
             var data = JSON.parse(mes.data)
             
+            this.addLogContent(data)
             
             switch(data.message){
                 case 'connected':
